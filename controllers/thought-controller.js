@@ -36,7 +36,7 @@ const thoughtController = {
         })
         .then((dbThoughtData) => {
             if (!dbThoughtData) {
-                return res.status(404).json({ message: 'No thoughts in head.'})
+                return res.json({ message: 'Thought added!'})
             }
             res.json(dbThoughtData)
         })
@@ -49,7 +49,7 @@ const thoughtController = {
         Thought.findOneAndUpdate({ _id: req.paras.thoughtId}, { $set: req.body }, { runValidators: true, new: true})
         .then((dbThoughtData) => {
             if (!dbThoughtData) {
-                return res.status(404).json({ message: 'No thoughts in head.'})
+                return res.json({ message: 'Thought updated!'})
             }
             res.json(dbThoughtData)
         })
@@ -71,9 +71,6 @@ const thoughtController = {
             )
         })
         .then((dbUserData) => {
-            if (!dbUserData) {
-                return res.status(404).json({ message: 'Cannot find User with this ID.'})
-            }
             res.json({message: 'Thought deleted.'})
         })
         .catch((err) => {

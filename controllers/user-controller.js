@@ -62,7 +62,7 @@ const userController = {
         User.findOneAndDelete({ _id: req.params.userId })
         .then((dbUserData) => {
             if (!dbUserData) {
-                return res.status(404).json({ message: 'Cannot find User with this ID.'})
+                return res.json({ message: 'Deleted User.'})
             }
             res.json(dbUserData)
         })
@@ -75,7 +75,7 @@ const userController = {
         User.findOneAndUpdate({ _id: req.params.userId}, { $addToSet: { friends: req.params.friendId }}, { new: true})
         .then((dbUserData) => {
             if (!dbUserData) {
-                return res.status(404).json({ message: 'Cannot find User with this ID.'})
+                return res.json({ message: 'Added Friend.'})
             }
             res.json(dbUserData)
         })
@@ -88,7 +88,7 @@ const userController = {
         User.findOneAndUpdate({ _id: req.params.userId}, { $pull: { friends: req.params.friendId }}, { new: true})
         .then((dbUserData) => {
             if (!dbUserData) {
-                return res.status(404).json({ message: 'Cannot find User with this ID.'})
+                return resjson({ message: 'Deleted Friend'})
             }
             res.json(dbUserData)
         })
