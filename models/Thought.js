@@ -24,7 +24,8 @@ const thoughtScheme = new Schema(
     {
         toJSON: {
           getters: true
-        }
+        },
+        id: false
     }
 )
 

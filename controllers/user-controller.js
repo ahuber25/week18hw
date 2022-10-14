@@ -1,16 +1,16 @@
-const User = require('../models/User')
+const { User } = require('../models')
 
 const userController = {
-    getUsers(req, res){
-        User.find()
-        .select('-__v')
-        .then((dbUserData) => {
-            res.json(dbUserData)
-        })
-        .catch((err) => {
-            console.log(err)
-            res.status(500).json(err)
-        })
+    getUsers(req, res) {
+    User.find()
+      .select('-__v')
+      .then((dbUserData) => {
+        res.json(dbUserData);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+      });
     },
     getOneUser(req, res){
         User.findOne({ _id: req.params.userId })
@@ -19,7 +19,7 @@ const userController = {
         .populate('friends')
         .then((dbUserData) => {
             if(!dbUserData) {
-                return res.status(500).json({ message: 'Cannot find User with this ID.'})
+                return res.status(404).json({ message: 'Cannot find User with this ID.'})
             }
             res.json(dbUserData)
         })
@@ -49,7 +49,7 @@ const userController = {
         )
         .then((dbUserData) => {
             if (!dbUserData) {
-                return res.status(500).json({ message: 'Cannot find User with this ID.'})
+                return res.status(404).json({ message: 'Cannot find User with this ID.'})
             }
             res.json(dbUserData)
         })
@@ -62,7 +62,7 @@ const userController = {
         User.findOneAndDelete({ _id: req.params.userId })
         .then((dbUserData) => {
             if (!dbUserData) {
-                return res.status(500).json({ message: 'Cannot find User with this ID.'})
+                return res.status(404).json({ message: 'Cannot find User with this ID.'})
             }
             res.json(dbUserData)
         })
@@ -75,7 +75,7 @@ const userController = {
         User.findOneAndUpdate({ _id: req.params.userId}, { $addToSet: { friends: req.params.friendId }}, { new: true})
         .then((dbUserData) => {
             if (!dbUserData) {
-                return res.status(500).json({ message: 'Cannot find User with this ID.'})
+                return res.status(404).json({ message: 'Cannot find User with this ID.'})
             }
             res.json(dbUserData)
         })
@@ -88,7 +88,7 @@ const userController = {
         User.findOneAndUpdate({ _id: req.params.userId}, { $pull: { friends: req.params.friendId }}, { new: true})
         .then((dbUserData) => {
             if (!dbUserData) {
-                return res.status(500).json({ message: 'Cannot find User with this ID.'})
+                return res.status(404).json({ message: 'Cannot find User with this ID.'})
             }
             res.json(dbUserData)
         })
