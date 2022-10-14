@@ -4,13 +4,13 @@ const dateFormat = require('../utils/dateFormat');
 
 const thoughtScheme = new Schema(
     {
-        thoughts: {
+        thoughtText: {
             type: String,
             required: true,
             minlength: 1,
             maxlength: 280
         },
-        created: {
+        createdAt: {
             type: Date,
             default: Date.now,
             get: timestamp => dateFormat(timestamp)
